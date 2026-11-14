@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block judul %}Prediksi - RAINNET{% endblock %}
+{% block isi %}
+<h1>Akankah hujan hari ini?</h1>
+<p class="lead">Masukkan nilai pengamatan cuaca, lalu lihat kemungkinan hujan.</p>
+<div class="dua">
+  <form class="kartu" method="post" novalidate>
+    <h2>Kondisi cuaca</h2>
+    {% if galat %}<div class="galat" role="alert">{% for g in galat %}<p>{{ g }}</p>{% endfor %}</div>{% endif %}
+    <div class="isian">
+      <label>Suhu udara (°C)<input name="suhu" inputmode="decimal" value="{{ nilai.get('suhu', '') }}" placeholder="28"></label>
+      <label>Kelembapan udara (%)<input name="rh" inputmode="decimal" value="{{ nilai.get('rh', '') }}" placeholder="85"></label>
+      <label>Lama penyinaran (jam)<input name="penyinaran" inputmode="decimal" value="{{ nilai.get('penyinaran', '') }}" placeholder="3"></label>
+      <label>Kecepatan angin (m/s)<input name="angin" inputmode="decimal" value="{{ nilai.get('angin', '') }}" placeholder="3"></label>
+    </div>
+    <div class="aksi"><button class="btn" type="submit">Prediksi sekarang</button><a class="btn alt" href="{{ url_for('prediksi') }}">Reset</a></div>
+  </form>
+  <div>
+    {% if hasil %}{% include "_hasil.html" %}
+    <p><a href="{{ url_for('detail', id_=hasil.id) }}">Lihat detail hasil</a></p>
+    {% else %}<div class="kartu"><h2>Hasil prediksi</h2><p class="catatan">Isi keempat kolom lalu tekan Prediksi sekarang. Hasilnya muncul di sini.</p></div>{% endif %}
+  </div>
+</div>
+{% endblock %}

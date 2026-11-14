@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block judul %}Tentang model - RAINNET{% endblock %}
+{% block isi %}
+<h1>Mengenal RAINNET</h1>
+<p class="lead">Rain Neural Network: prediksi kemungkinan hujan dan tidak hujan menggunakan Jaringan Syaraf Buatan (JSB).</p>
+<h2>Bagaimana prediksi dibuat?</h2>
+<ol class="langkah">
+  <li><strong>1. Input cuaca</strong>Pengguna memasukkan empat variabel pengamatan.</li>
+  <li><strong>2. Pemrosesan JSB</strong>Data diproses model yang dilatih dari data historis BMKG.</li>
+  <li><strong>3. Keluaran prediksi</strong>Peluang hujan dan tidak hujan ditampilkan.</li>
+</ol>
+<h2 style="margin-top:32px">Variabel yang digunakan</h2>
+<table class="tabel">
+  <tr><th>Variabel</th><th>Satuan</th></tr>
+  <tr><td>Suhu udara</td><td>°C</td></tr>
+  <tr><td>Kelembapan udara</td><td>%</td></tr>
+  <tr><td>Lama penyinaran matahari</td><td>jam</td></tr>
+  <tr><td>Kecepatan angin</td><td>m/s</td></tr>
+</table>
+<h2 style="margin-top:32px">Evaluasi model</h2>
+<div class="kartu"><p class="catatan">Isi bagian ini dengan hasil evaluasi dari pelatihan (akurasi, presisi, recall, F1).</p></div>
+<h2 style="margin-top:32px">Hal yang perlu diketahui</h2>
+<ul>
+  <li>Kualitas prediksi bergantung pada data pelatihan.</li>
+  <li>Nilai yang dimasukkan harus memakai satuan yang sesuai.</li>
+  <li>Peluang tinggi tidak menjamin hujan pasti terjadi.</li>
+  <li>Akurasi model perlu diuji sebelum digunakan.</li>
+</ul>
+{% endblock %}
