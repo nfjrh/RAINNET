@@ -6,9 +6,9 @@ Aplikasi prediksi kemungkinan hujan dan tidak hujan berdasarkan variabel cuaca m
 
 ```bash
 python -m venv venv
-venv\Scripts\activate        # Windows (Linux/Mac: source venv/bin/activate)
+venv\Scripts\activate        
 pip install -r requirements.txt
-python app.py                # buka http://127.0.0.1:5000
+python app.py                
 ```
 
 Selama `model/model.pkl` belum ada, aplikasi berjalan dalam **mode demo** (rumus sementara, ada banner di atas halaman). Setelah model dipasang, banner hilang otomatis.
@@ -25,10 +25,10 @@ Selama `model/model.pkl` belum ada, aplikasi berjalan dalam **mode demo** (rumus
 
 | Berkas | Isi | Pemilik |
 |---|---|---|
-| `training/` | pembersihan data dan pelatihan model | A |
-| `model/` | `model.pkl`, `scaler.pkl` | A |
-| `predictor.py`, `db.py`, `app.py` | prediksi, SQLite, route Flask | B |
-| `templates/`, `static/` | tampilan | C |
+| `training/` | pembersihan data dan pelatihan model |  |
+| `model/` | `model.pkl`, `scaler.pkl` |  |
+| `predictor.py`, `db.py`, `app.py` | prediksi, SQLite, route Flask |  |
+| `templates/`, `static/` | tampilan |  |
 
 ## Alur Git
 
