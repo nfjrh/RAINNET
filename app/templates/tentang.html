@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Tentang model{% endblock %}
+{% block content %}
+<section class="blok">
+  <p class="eyebrow">Rain Neural Network</p>
+  <h1>Mengenal RAINNET</h1>
+  <p class="lead">Prediksi cuaca menggunakan Jaringan Syaraf Buatan.</p>
+
+  <div class="kartu">
+    <h2>Apa itu RAINNET?</h2>
+    <p>RAINNET (Rain Neural Network) adalah rancangan aplikasi prediksi kemungkinan hujan
+      dan tidak hujan berdasarkan variabel cuaca menggunakan Jaringan Syaraf Buatan (JSB).</p>
+  </div>
+</section>
+
+<section class="blok">
+  <h2>Bagaimana prediksi dibuat?</h2>
+  <div class="grid-3">
+    <div class="kartu"><span class="nomor">01</span><h3>Input cuaca</h3>
+      <p>Empat variabel pengamatan dimasukkan oleh pengguna.</p></div>
+    <div class="kartu"><span class="nomor">02</span><h3>Pemrosesan JSB</h3>
+      <p>Data diproses oleh model yang telah dilatih dari data historis.</p></div>
+    <div class="kartu"><span class="nomor">03</span><h3>Keluaran prediksi</h3>
+      <p>Peluang hujan dan tidak hujan ditampilkan agar mudah dibaca.</p></div>
+  </div>
+</section>
+
+<section class="blok">
+  <h2>Variabel yang digunakan</h2>
+  <div class="grid-4">
+    <div class="kartu"><h3>Suhu udara</h3><p class="satuan">°C</p></div>
+    <div class="kartu"><h3>Kelembapan udara</h3><p class="satuan">%</p></div>
+    <div class="kartu"><h3>Tekanan udara</h3><p class="satuan">hPa</p></div>
+    <div class="kartu"><h3>Kecepatan angin</h3><p class="satuan">km/jam</p></div>
+  </div>
+</section>
+
+{% if m %}
+<section class="blok">
+  <h2>Data dan akurasi model</h2>
+  <p class="kecil">Dilatih dengan data cuaca harian Makassar, {{ m.periode }}
+    ({{ m.jumlah_data }} hari). Pengujian memakai data terbaru yang tidak ikut dilatih.</p>
+  <div class="grid-4">
+    <div class="kartu stat"><div class="angka-besar">{{ m.akurasi_uji|angka }}%</div><p>Akurasi pada data uji</p></div>
+    <div class="kartu stat"><div class="angka-besar">{{ m.f1_uji|angka }}%</div><p>F1-score (hujan)</p></div>
+    <div class="kartu stat"><div class="angka-besar">{{ m.akurasi_tebak_mayoritas|angka }}%</div><p>Pembanding: selalu menebak "hujan" atau "tidak"</p></div>
+    <div class="kartu stat"><div class="angka-besar">{{ m.data_uji }}</div><p>Hari dipakai untuk uji</p></div>
+  </div>
+</section>
+{% endif %}
+
+<section class="blok">
+  <h2>Hal yang perlu diketahui</h2>
+  <div class="kartu">
+    <ul>
+      <li>Kualitas prediksi bergantung pada data pelatihan.</li>
+      <li>Nilai yang dimasukkan harus memakai satuan yang sesuai.</li>
+      <li>Peluang tinggi tidak menjamin hujan pasti terjadi.</li>
+      <li>Model memakai nilai rata-rata harian, bukan kondisi sesaat.</li>
+      <li>Hujan didefinisikan sebagai curah hujan harian ≥ 1 mm.</li>
+    </ul>
+  </div>
+</section>
+{% endblock %}

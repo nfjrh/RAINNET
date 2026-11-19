@@ -1,0 +1,13 @@
+{
+  "jumlah_data": 4017,
+  "data_latih": 3287,
+  "data_uji": 730,
+  "periode": "2015-01-01 s.d. 2025-12-30",
+  "akurasi_uji": 80.3,
+  "f1_uji": 83.1,
+  "akurasi_tebak_mayoritas": 60.3,
+  "tn": 231,
+  "fp": 59,
+  "fn": 85,
+  "tp": 355
+}

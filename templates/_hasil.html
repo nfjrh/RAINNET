@@ -1,9 +1,0 @@
-<div class="kartu hasil {{ '' if hasil.hujan else 'kering' }}">
-  <h2>{{ hasil.label }}</h2>
-  <p class="besar">{{ hasil.besar }}%</p>
-  <p>kemungkinan {{ 'hujan' if hasil.hujan else 'tidak hujan' }}</p>
-  <div class="bar2"><i style="width:{{ hasil.persen_hujan }}%"></i><b style="width:{{ hasil.persen_tidak }}%"></b></div>
-  <div class="legenda"><span>Hujan {{ hasil.persen_hujan }}%</span><span>Tidak hujan {{ hasil.persen_tidak }}%</span></div>
-  <p><strong>{{ hasil.saran }}</strong></p>
-  <p class="catatan">Peluang tinggi tidak menjamin hujan pasti terjadi. Tetap pantau perubahan cuaca.</p>
-</div>

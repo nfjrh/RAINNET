@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Prediksi{% endblock %}
+{% block content %}
+<section class="blok">
+  <p class="eyebrow">Prediksi cuaca berbasis AI</p>
+  <h1>Akankah hujan hari ini?</h1>
+  <p class="lead">Kenali kemungkinan hujan dari kondisi cuaca di sekitar Anda.</p>
+
+  <div class="grid-2">
+    <form class="kartu" method="post" action="{{ url_for('main.prediksi') }}" novalidate>
+      <h2>Kondisi cuaca</h2>
+      <p class="kecil">Masukkan nilai pengamatan untuk memulai prediksi.</p>
+
+      <div class="grid-form">
+        {% for key, label, satuan, contoh in [
+          ('suhu', 'Suhu udara', '°C', '28'),
+          ('kelembapan', 'Kelembapan udara', '%', '85'),
+          ('tekanan', 'Tekanan udara', 'hPa', '1008'),
+          ('angin', 'Kecepatan angin', 'km/jam', '12')] %}
+        <label class="field">
+          <span>{{ label }}</span>
+          <div class="input-satuan">
+            <input type="text" inputmode="decimal" name="{{ key }}"
+                   value="{{ isian.get(key, '') }}" placeholder="{{ contoh }}" required>
+            <em>{{ satuan }}</em>
+          </div>
+          {% if error.get(key) %}<small class="error">{{ error[key] }}</small>{% endif %}
+        </label>
+        {% endfor %}
+      </div>
+
+      <p class="kecil">Gunakan satuan yang tertera pada setiap kolom.</p>
+      <div class="aksi">
+        <button class="btn btn-utama" type="submit">Prediksi sekarang</button>
+        <a class="btn btn-garis" href="{{ url_for('main.prediksi') }}">Reset</a>
+      </div>
+    </form>
+
+    <div class="kartu hasil">
+      <p class="eyebrow">Hasil prediksi</p>
+      {% if hasil %}
+        <h2>{{ hasil.judul }}</h2>
+        <p class="kecil">Berdasarkan kondisi yang Anda masukkan</p>
+        <div class="angka-besar">{{ hasil.peluang|angka }}<small>%</small></div>
+        <p>kemungkinan hujan</p>
+        <div class="bar"><span style="width:{{ hasil.peluang }}%"></span></div>
+        <p class="split"><span>Hujan {{ hasil.peluang|angka }}%</span>
+          <span>Tidak hujan {{ hasil.tidak|angka }}%</span></p>
+        <p><strong>{{ hasil.saran_utama }}</strong></p>
+        <p class="kecil">{{ hasil.saran_tambahan }}</p>
+        <a class="btn btn-garis" href="{{ url_for('main.riwayat') }}">Lihat riwayat</a>
+      {% else %}
+        <p class="kecil">Hasil akan muncul di sini setelah Anda menekan
+          <strong>Prediksi sekarang</strong>.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="blok">
+  <h2>Dari data cuaca menjadi prediksi</h2>
+  <div class="grid-3">
+    <div class="kartu"><span class="nomor">01</span><h3>Masukkan data</h3>
+      <p>Isi empat variabel cuaca hasil pengamatan.</p></div>
+    <div class="kartu"><span class="nomor">02</span><h3>Analisis jaringan syaraf</h3>
+      <p>JSB mempelajari pola pada variabel cuaca.</p></div>
+    <div class="kartu"><span class="nomor">03</span><h3>Lihat kemungkinan</h3>
+      <p>Hasil ditampilkan sebagai peluang hujan.</p></div>
+  </div>
+</section>
+{% endblock %}

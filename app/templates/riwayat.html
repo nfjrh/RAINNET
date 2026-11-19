@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Riwayat{% endblock %}
+{% block content %}
+<section class="blok">
+  <p class="eyebrow">Rain Neural Network</p>
+  <h1>Riwayat prediksi</h1>
+  <p class="lead">Tinjau kembali kondisi cuaca dan hasil analisis Anda.</p>
+
+  <div class="grid-3">
+    <div class="kartu stat"><div class="angka-besar">{{ ringkasan.total }}</div><p>Total prediksi</p></div>
+    <div class="kartu stat"><div class="angka-besar">{{ ringkasan.hujan }}</div><p>Berpotensi hujan</p></div>
+    <div class="kartu stat"><div class="angka-besar">{{ ringkasan.tidak }}</div><p>Cenderung tidak hujan</p></div>
+  </div>
+</section>
+
+<section class="blok">
+  <div class="baris-judul">
+    <h2>Daftar prediksi</h2>
+    <form method="get" class="filter">
+      <input type="date" name="tanggal" value="{{ tanggal }}" onchange="this.form.submit()">
+      {% if tanggal %}<a href="{{ url_for('main.riwayat') }}">Semua tanggal</a>{% endif %}
+    </form>
+    <a class="btn btn-utama" href="{{ url_for('main.prediksi') }}">Prediksi baru</a>
+  </div>
+
+  <div class="kartu tabel-wrap">
+    <table>
+      <thead>
+        <tr><th>Waktu</th><th>Suhu</th><th>Kelembapan</th><th>Peluang hujan</th><th>Hasil</th><th>Aksi</th></tr>
+      </thead>
+      <tbody>
+        {% for r in baris %}
+        <tr>
+          <td>{{ r.waktu|tanggal }}</td>
+          <td>{{ r.suhu|angka }} °C</td>
+          <td>{{ r.kelembapan|angka }}%</td>
+          <td>{{ r.peluang_hujan|angka }}%</td>
+          <td><span class="badge {{ 'hujan' if r.hasil == 'Hujan' else 'cerah' }}">{{ r.hasil }}</span></td>
+          <td><a href="{{ url_for('main.detail', id=r.id) }}">Detail</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="kosong">
+          {% if tanggal %}Tidak ada prediksi pada tanggal ini.{% else %}Belum ada prediksi. Coba buat yang pertama.{% endif %}
+        </td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="kecil">Menampilkan {{ baris|length }} dari {{ total_semua }} prediksi</p>
+</section>
+{% endblock %}
