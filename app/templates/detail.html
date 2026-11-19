@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Detail prediksi{% endblock %}
+{% block content %}
+<section class="blok">
+  <p class="eyebrow">Rain Neural Network</p>
+  <h1>Detail hasil prediksi</h1>
+  <p class="lead">Rincian kondisi cuaca dan probabilitas hasil analisis. {{ row.waktu|tanggal(true) }}</p>
+
+  <div class="kartu hasil">
+    <p class="eyebrow">Hasil analisis</p>
+    <h2>{{ info.judul }}</h2>
+    <div class="angka-besar">{{ utama|angka }}<small>%</small></div>
+    <p>kemungkinan {{ 'hujan' if row.hasil == 'Hujan' else 'tidak hujan' }}</p>
+    <div class="bar"><span style="width:{{ utama }}%"></span></div>
+    <p class="split">
+      {% if row.hasil == 'Hujan' %}
+        <span>Hujan {{ utama|angka }}%</span><span>Tidak hujan {{ lawan|angka }}%</span>
+      {% else %}
+        <span>Tidak hujan {{ utama|angka }}%</span><span>Hujan {{ lawan|angka }}%</span>
+      {% endif %}
+    </p>
+    <p><strong>{{ info.saran_utama }}</strong></p>
+    <p class="kecil">{{ info.saran_tambahan }}</p>
+  </div>
+</section>
+
+<section class="blok">
+  <h2>Data cuaca yang dianalisis</h2>
+  <p class="kecil">Nilai pengamatan pada saat prediksi dibuat.</p>
+  <div class="grid-4">
+    <div class="kartu"><p class="kecil">Suhu udara</p><div class="nilai">{{ row.suhu|angka }} °C</div></div>
+    <div class="kartu"><p class="kecil">Kelembapan udara</p><div class="nilai">{{ row.kelembapan|angka }}%</div></div>
+    <div class="kartu"><p class="kecil">Tekanan udara</p><div class="nilai">{{ row.tekanan|angka }} hPa</div></div>
+    <div class="kartu"><p class="kecil">Kecepatan angin</p><div class="nilai">{{ row.angin|angka }} km/jam</div></div>
+  </div>
+  <div class="aksi">
+    <a class="btn btn-utama" href="{{ url_for('main.prediksi') }}">Buat prediksi baru</a>
+    <a class="btn btn-garis" href="{{ url_for('main.riwayat') }}">Kembali ke riwayat</a>
+  </div>
+</section>
+{% endblock %}

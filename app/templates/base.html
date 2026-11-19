@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}RAINNET{% endblock %} · Rain Neural Network</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('main.beranda') }}">
+      <span class="brand-name">RAINNET</span>
+      <span class="brand-sub">Rain Neural Network</span>
+    </a>
+    <nav>
+      {% set ep = request.endpoint %}
+      <a href="{{ url_for('main.beranda') }}" class="{{ 'aktif' if ep == 'main.beranda' }}">Beranda</a>
+      <a href="{{ url_for('main.prediksi') }}" class="{{ 'aktif' if ep == 'main.prediksi' }}">Prediksi</a>
+      <a href="{{ url_for('main.riwayat') }}" class="{{ 'aktif' if ep in ('main.riwayat', 'main.detail') }}">Riwayat</a>
+      <a href="{{ url_for('main.tentang') }}" class="{{ 'aktif' if ep == 'main.tentang' }}">Tentang model</a>
+    </nav>
+    <span class="chip">Model berbasis JSB</span>
+  </header>
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer class="footer">
+    <strong>RAINNET</strong> · Prediksi hujan menggunakan Jaringan Syaraf Buatan
+  </footer>
+</body>
+</html>

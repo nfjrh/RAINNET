@@ -1,43 +1,13 @@
 # RAINNET (Rain Neural Network)
 
-Aplikasi prediksi kemungkinan hujan dan tidak hujan berdasarkan variabel cuaca menggunakan Jaringan Syaraf Buatan (JSB). Sumber data: BMKG.
-
-## Menjalankan
+Prediksi hujan / tidak hujan dari suhu, kelembapan, tekanan udara, dan kecepatan angin.
 
 ```bash
-python -m venv venv
-venv\Scripts\activate        
+python -m venv venv && source venv/bin/activate   # Windows: venv\Scripts\activate
 pip install -r requirements.txt
-python app.py                
+python train.py      # melatih model -> models/rainnet_model.joblib
+python run.py        # buka http://127.0.0.1:5000
 ```
 
-Selama `model/model.pkl` belum ada, aplikasi berjalan dalam **mode demo** (rumus sementara, ada banner di atas halaman). Setelah model dipasang, banner hilang otomatis.
-
-## Kesepakatan tim (jangan diubah sepihak)
-
-- **Urutan fitur:** `suhu, rh, penyinaran, angin`. Sama persis saat pelatihan dan prediksi.
-- **Satuan:** °C, %, jam, m/s.
-- **Label:** `hujan = 1` jika `RR > 0`, selain itu `0`. Kelas 1 = hujan.
-- **File model:** `model/model.pkl` dan `model/scaler.pkl` (dari `joblib.dump`).
-- **Catatan data BMKG:** nilai 8888 dan 9999 berarti data kosong, buang saat pembersihan.
-
-## Struktur
-
-| Berkas | Isi | Pemilik |
-|---|---|---|
-| `training/` | pembersihan data dan pelatihan model |  |
-| `model/` | `model.pkl`, `scaler.pkl` |  |
-| `predictor.py`, `db.py`, `app.py` | prediksi, SQLite, route Flask |  |
-| `templates/`, `static/` | tampilan |  |
-
-## Alur Git
-
-Satu cabang per orang (`model`, `backend`, `frontend`), gabung ke `main` lewat Pull Request. Jalankan `git pull` sebelum mulai bekerja.
-
-## Tambahan .gitignore
-
-```
-data/
-*.db
-venv/
-```
+Mengganti data: timpa `data/dataset_cuaca_makassar_harian.csv` (kolom sama), lalu jalankan `python train.py` lagi.
+Lihat `CATATAN_PERUBAHAN.md` untuk daftar perbedaan dari mockup.

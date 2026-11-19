@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Beranda{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Rain Neural Network</p>
+    <h1>Cuaca berubah.<br>Bersiap lebih awal.</h1>
+    <p class="lead">RAINNET membantu membaca kemungkinan hujan dari variabel cuaca.</p>
+    <p class="eyebrow">AI untuk memahami cuaca</p>
+    <h2>Dari pengamatan cuaca, menjadi langkah antisipasi.</h2>
+    <p>Masukkan empat variabel cuaca. RAINNET menganalisis pola dan menampilkan peluang hujan atau tidak hujan.</p>
+    <div class="aksi">
+      <a class="btn btn-utama" href="{{ url_for('main.prediksi') }}">Mulai prediksi</a>
+      <a class="btn btn-garis" href="{{ url_for('main.tentang') }}">Pelajari model</a>
+    </div>
+  </div>
+
+  <aside class="kartu contoh">
+    <p class="eyebrow">Contoh hasil analisis</p>
+    <div class="angka-besar">78%</div>
+    <p class="judul-hasil">Berpotensi hujan</p>
+    <div class="bar"><span style="width:78%"></span></div>
+    <p class="kecil">Ilustrasi dari data cuaca contoh, bukan prakiraan cuaca langsung.</p>
+    <span class="chip">Data simulasi</span>
+  </aside>
+</section>
+
+<section class="blok">
+  <h2>Mulai dalam tiga langkah</h2>
+  <div class="grid-3">
+    <div class="kartu"><span class="nomor">01</span><h3>Amati cuaca</h3>
+      <p>Siapkan suhu, kelembapan, tekanan udara, dan kecepatan angin.</p></div>
+    <div class="kartu"><span class="nomor">02</span><h3>Jalankan analisis</h3>
+      <p>Masukkan data dan gunakan tombol Prediksi sekarang.</p></div>
+    <div class="kartu"><span class="nomor">03</span><h3>Baca peluangnya</h3>
+      <p>Lihat kemungkinan hujan dan saran untuk membantu persiapan aktivitas.</p></div>
+  </div>
+</section>
+{% endblock %}
