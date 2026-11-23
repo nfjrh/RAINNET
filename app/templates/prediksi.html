@@ -10,6 +10,12 @@
     <form class="kartu" method="post" action="{{ url_for('main.prediksi') }}" novalidate>
       <h2>Kondisi cuaca</h2>
       <p class="kecil">Masukkan nilai pengamatan untuk memulai prediksi.</p>
+      <a class="btn btn-garis" href="{{ url_for('main.prediksi', terkini=1) }}">Ambil data terkini</a>
+      {% if error.get('_umum') %}<small class="error">{{ error['_umum'] }}</small>{% endif %}
+      {% if sumber %}
+      <p class="kecil">Rata-rata hari ini ({{ sumber.tanggal }}) dari {{ sumber.jumlah_slot }} data prakiraan.
+        Silakan cek nilainya lalu tekan <strong>Prediksi sekarang</strong>.</p>
+      {% endif %}
 
       <div class="grid-form">
         {% for key, label, satuan, contoh in [
@@ -30,6 +36,7 @@
       </div>
 
       <p class="kecil">Gunakan satuan yang tertera pada setiap kolom.</p>
+      <p class="kecil">Sumber data terkini: BMKG (suhu, kelembapan, angin) dan Open-Meteo (tekanan udara).</p>
       <div class="aksi">
         <button class="btn btn-utama" type="submit">Prediksi sekarang</button>
         <a class="btn btn-garis" href="{{ url_for('main.prediksi') }}">Reset</a>
