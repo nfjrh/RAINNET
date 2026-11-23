@@ -4,6 +4,7 @@ from flask import (Blueprint, abort, current_app, redirect, render_template,
                    request, url_for)
 
 from .db import get_db
+from .services.cuaca_realtime import DataCuacaError, ambil_data_terkini
 from .services.predictor import hitung_peluang_hujan, klasifikasi, muat_metrik
 
 bp = Blueprint("main", __name__)
@@ -58,7 +59,20 @@ def beranda():
 
 @bp.route("/prediksi", methods=["GET", "POST"])
 def prediksi():
-    hasil, error, isian = None, {}, {}
+    hasil, error, isian, sumber = None, {}, {}, None
+    if request.method == "GET" and request.args.get("terkini"):
+        # Isi form otomatis dari data BMKG + Open-Meteo (belum disimpan ke riwayat)
+        adm4 = current_app.config["BMKG_ADM4"]
+        if not adm4:
+            error["_umum"] = "BMKG_ADM4 belum diatur di file .env."
+        else:
+            try:
+                data = ambil_data_terkini(adm4, current_app.config["LOKASI_LAT"],
+                                          current_app.config["LOKASI_LON"])
+                isian = {k: data[k] for k in ("suhu", "kelembapan", "tekanan", "angin")}
+                sumber = data["info"]
+            except DataCuacaError as e:
+                error["_umum"] = f"Gagal mengambil data terkini: {e}"
     if request.method == "POST":
         isian = request.form
         nilai, error = _baca_input(request.form)
@@ -75,7 +89,8 @@ def prediksi():
             )
             db.commit()
             hasil = {"peluang": peluang, "tidak": round(100 - peluang, 1), **info}
-    return render_template("prediksi.html", hasil=hasil, error=error, isian=isian)
+    return render_template("prediksi.html", hasil=hasil, error=error,
+                           isian=isian, sumber=sumber)
 
 
 @bp.route("/riwayat")
